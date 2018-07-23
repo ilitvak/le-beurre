@@ -1,35 +1,40 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import $ from 'jquery';
-import List from './components/List.jsx';
+import Nav from '../src/components/Nav.jsx';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import blue from '@material-ui/core/colors/blue';
+import Login from './components/Login.jsx';
+
+// import material ui theme for entire application
+const theme = createMuiTheme({
+  palette: {
+    primary: blue,
+    secondary: {
+      main: '#fff',
+    },
+  }
+});
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-      items: []
+      isLoggedIn: false
     }
   }
 
-  componentDidMount() {
-    $.ajax({
-      url: '/items', 
-      success: (data) => {
-        this.setState({
-          items: data
-        })
-      },
-      error: (err) => {
-        console.log('err', err);
-      }
-    });
-  }
-
   render () {
-    return (<div>
-      <h1>Item List</h1>
-      <List items={this.state.items}/>
-    </div>)
+    if(this.state.isLoggedIn){
+      return (
+        <MuiThemeProvider theme={theme}>
+          <Nav/>
+        </MuiThemeProvider>
+      )
+    } else {
+      return (
+        <Login />
+      )
+    }
   }
 }
 
