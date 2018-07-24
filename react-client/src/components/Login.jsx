@@ -24,6 +24,7 @@ class Login extends React.Component {
               <i className="fas fa-utensils"></i>
             </span>
           </div>
+          <h4>Storing daily meals has never been easier.</h4>
           <div className='login-area'>
             <div className='username'>
               <span>
@@ -41,14 +42,20 @@ class Login extends React.Component {
                   <i className="fas fa-user-circle"></i>
               </span>
               <TextField
-                id="with-placeholder"
+                id="password"
                 label="password"
                 placeholder="password"
+                type="password"
+                autoComplete="current-password"
                 className='textField'
               />
             </div>
             <div className='login-btn-container'>
-              <Button variant="contained" color="primary" className='login-btn'>
+              <Button 
+                onClick={this.props.clickedLoginBtn}
+                variant="contained" 
+                color="primary" 
+                className='login-btn'>
                 login
               </Button>
             </div>

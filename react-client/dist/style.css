@@ -58,8 +58,14 @@ form {
   color: #fff;
 }
 
+.login-container h4 {
+  font-size: 12px;
+  padding-top: 30px;
+  text-align: center;
+}
+
 .login-area {
-  padding: 80px 35px;
+  padding: 40px 35px;
 }
 
 .login-area .username span i,
@@ -93,6 +99,10 @@ form {
   display: flex;
 }
 
+.app-bar {
+  background-color: #637bfe !important;
+}
+
 .tool-bar {
   justify-content: space-between;
 }
@@ -101,3 +111,80 @@ form {
   flex-grow: 1;
 }
 
+.logout-btn {
+  font-size: 16px !important;
+  text-transform: lowercase !important;
+}
+
+/* --------------------------------------- */
+/* Dashboard */
+/* --------------------------------------- */
+
+.dashboard-container {
+  width: 50%;
+  height: 300px;
+  margin-top: 100px;
+  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+}
+
+.dashboard-container .title {
+  text-align: right;
+  padding: 18px 25px;
+}
+
+.dashboard-container .title h3 {
+  font-size: 15px;
+}
+
+.user-avatar-container {
+  display: inline-block;
+  width: 30%;
+  height: auto;
+  padding: 70px 0;
+  vertical-align: top;
+}
+
+.avatar-box {
+  position: relative;
+}
+
+.bigAvatar {
+  width: 100px !important;
+  height: 100px !important;
+  margin: 0 auto;
+  background-image: url('http://i67.tinypic.com/1538epe.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 0px -14px;
+}
+
+.daily-goals,
+.weekly-goals {
+  height: 100px;
+  padding: 39px 0;
+  border-bottom: 2px solid #637bfe;
+}
+
+.daily-goals p,
+.daily-goals h4,
+.weekly-goals p,
+.weekly-goals h4 {
+  display: inline-block;
+}
+
+.daily-goals h4,
+.weekly-goals h4 {
+  padding-right: 10px;
+}
+
+.daily-goals p,
+.weekly-goals p  {
+  font-weight: bold;
+  color: #27ae60;
+}
+
+.goals-container {
+  display: inline-block;
+  width: 477px;
+  height: 240px;
+}

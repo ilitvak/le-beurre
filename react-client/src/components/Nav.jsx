@@ -8,7 +8,7 @@ class Nav extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      
+
     }
   }
 
@@ -20,7 +20,10 @@ class Nav extends React.Component {
             <Typography variant="title" color="inherit" className='flex'>
               Le Beurre
             </Typography >
-            <Button color="inherit">Logout</Button>
+            <Button 
+              onClick={this.props.clickedLogoutBtn}
+              color="inherit" 
+              className='logout-btn'>logout</Button>
           </Toolbar>
         </AppBar>
       </div>
