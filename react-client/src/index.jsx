@@ -5,6 +5,10 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import blue from '@material-ui/core/colors/blue';
 import Login from './components/Login.jsx';
 import Dashboard from './components/Dashboard.jsx';
+import FoodLog from './components/FoodLog.jsx';
+import axios from 'axios';
+import {BrowserRouter, Route, Link, Switch, Redirect} from 'react-router-dom';
+import FoodLogEntry from './components/FoodLogEntry.jsx';
 
 // import material ui theme for entire application
 const theme = createMuiTheme({
@@ -25,6 +29,7 @@ class App extends React.Component {
     }
     this.clickedLoginBtn = this.clickedLoginBtn.bind(this);
     this.clickedLogoutBtn = this.clickedLogoutBtn.bind(this);
+    this.addNewFoodLog = this.addNewFoodLog.bind(this);
   }
 
   clickedLoginBtn(){
@@ -40,21 +45,28 @@ class App extends React.Component {
     })
   }
 
+  addNewFoodLog(e){
+    e.preventDefault();
+    // wrap this in a link tag 
+    console.log('Add new food log clicked!');
+  }
 
   render () {
-    if(this.state.isLoggedIn){
-      return (
+    return (
+      <BrowserRouter>
         <MuiThemeProvider theme={theme}>
-          <Nav clickedLogoutBtn={this.clickedLogoutBtn}/>
-          <Dashboard consecutiveCheckIns={this.state.consecutiveCheckIns} />
+          {this.state.isLoggedIn ? <Nav clickedLogoutBtn={this.clickedLogoutBtn}/> : ''}
+          <Route path='/' exact component={() => <Login clickedLoginBtn={this.clickedLoginBtn}/>} />
+          <Route path='/foodlogentry' component={() => <FoodLogEntry />} />
+          <Route path='/dashboard' component={ () => <Dashboard 
+            addNewFoodLog={this.addNewFoodLog}
+            consecutiveCheckIns={this.state.consecutiveCheckIns}/> } />
         </MuiThemeProvider>
-      )
-    } else {
-      return (
-        <Login clickedLoginBtn={this.clickedLoginBtn}/>
-      )
-    }
+      </BrowserRouter>
+    )
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(
+    <App />, document.getElementById('app')
+);

@@ -1,5 +1,6 @@
 import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
+import FoodLog from '../components/FoodLog.jsx';
 
 class Dashboard extends React.Component {
   constructor(props){
@@ -35,6 +36,7 @@ class Dashboard extends React.Component {
             <p>{`Lose 3lbs`}</p>
           </div>
         </div>
+        <FoodLog addNewFoodLog={this.props.addNewFoodLog}/>
       </div>
     );
   }

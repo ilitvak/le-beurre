@@ -1,7 +1,7 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import blue from '@material-ui/core/colors/blue';
+import {Link} from 'react-router-dom';
 
 class Login extends React.Component {
   constructor(props){
@@ -9,10 +9,7 @@ class Login extends React.Component {
     this.state = {
 
     }
-    // bind methods here
   }
-
-  // use methods here
 
   render(){
     return(
@@ -51,6 +48,7 @@ class Login extends React.Component {
               />
             </div>
             <div className='login-btn-container'>
+            <Link to='/dashboard'>
               <Button 
                 onClick={this.props.clickedLoginBtn}
                 variant="contained" 
@@ -58,6 +56,7 @@ class Login extends React.Component {
                 className='login-btn'>
                 login
               </Button>
+            </Link>
             </div>
           </div>
         </form>

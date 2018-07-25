@@ -3,6 +3,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import {Link} from 'react-router-dom';
 
 class Nav extends React.Component {
   constructor(props){
@@ -19,11 +20,14 @@ class Nav extends React.Component {
           <Toolbar className='tool-bar'>
             <Typography variant="title" color="inherit" className='flex'>
               Le Beurre
-            </Typography >
-            <Button 
-              onClick={this.props.clickedLogoutBtn}
-              color="inherit" 
-              className='logout-btn'>logout</Button>
+            </Typography>
+            <Link to='/'>   
+              <Button 
+                onClick={this.props.clickedLogoutBtn}
+                color="inherit" 
+                className='logout-btn'>logout
+              </Button>
+              </Link>
           </Toolbar>
         </AppBar>
       </div>
