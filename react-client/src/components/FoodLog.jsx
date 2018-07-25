@@ -34,7 +34,6 @@ class FoodLog extends React.Component {
           <div className='add-new-log'>
             <Link to='/foodlogentry'>
               <Button 
-                onClick={(e) => this.props.addNewFoodLog(e)}
                 variant="fab" 
                 color="primary" 
                 aria-label="Add" 

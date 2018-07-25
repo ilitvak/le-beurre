@@ -29,7 +29,6 @@ class App extends React.Component {
     }
     this.clickedLoginBtn = this.clickedLoginBtn.bind(this);
     this.clickedLogoutBtn = this.clickedLogoutBtn.bind(this);
-    this.addNewFoodLog = this.addNewFoodLog.bind(this);
   }
 
   clickedLoginBtn(){
@@ -45,22 +44,19 @@ class App extends React.Component {
     })
   }
 
-  addNewFoodLog(e){
-    e.preventDefault();
-    // wrap this in a link tag 
-    console.log('Add new food log clicked!');
-  }
-
   render () {
     return (
       <BrowserRouter>
         <MuiThemeProvider theme={theme}>
           {this.state.isLoggedIn ? <Nav clickedLogoutBtn={this.clickedLogoutBtn}/> : ''}
           <Route path='/' exact component={() => <Login clickedLoginBtn={this.clickedLoginBtn}/>} />
-          <Route path='/foodlogentry' component={() => <FoodLogEntry />} />
-          <Route path='/dashboard' component={ () => <Dashboard 
-            addNewFoodLog={this.addNewFoodLog}
-            consecutiveCheckIns={this.state.consecutiveCheckIns}/> } />
+          <Route path='/foodlogentry' component={FoodLogEntry} />
+          <Route path='/dashboard' component={ () => { 
+            return ( 
+              <Dashboard consecutiveCheckIns={this.state.consecutiveCheckIns}/>
+            ) 
+          }
+          } />
         </MuiThemeProvider>
       </BrowserRouter>
     )

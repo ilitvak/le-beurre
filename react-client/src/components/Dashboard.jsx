@@ -36,7 +36,7 @@ class Dashboard extends React.Component {
             <p>{`Lose 3lbs`}</p>
           </div>
         </div>
-        <FoodLog addNewFoodLog={this.props.addNewFoodLog}/>
+        <FoodLog />
       </div>
     );
   }
