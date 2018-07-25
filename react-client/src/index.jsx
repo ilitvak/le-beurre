@@ -25,7 +25,8 @@ class App extends React.Component {
     super(props);
     this.state = { 
       isLoggedIn: false,
-      consecutiveCheckIns: 0
+      consecutiveCheckIns: 0,
+      
     }
     this.clickedLoginBtn = this.clickedLoginBtn.bind(this);
     this.clickedLogoutBtn = this.clickedLogoutBtn.bind(this);

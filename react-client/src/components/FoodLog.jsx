@@ -15,8 +15,8 @@ class FoodLog extends React.Component {
 
   getCurrentDate(){
     let currentDate = new Date();
-    let month = currentDate.getMonth();
-    let day = currentDate.getDay();
+    let month = currentDate.getMonth() + 1;
+    let day = currentDate.getDate();
     let year = currentDate.getFullYear();
     let fullDate = `${month}/${day}/${year}`;
     return fullDate;

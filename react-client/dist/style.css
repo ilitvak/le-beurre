@@ -13,6 +13,11 @@
   transition: all .5s;
 }
 
+a {
+  text-decoration: none;
+  color: #fff;
+}
+
 /* --------------------------------------- */
 /* Login */
 /* --------------------------------------- */
@@ -222,9 +227,50 @@ form {
   text-align: right;
 }
 
-.add-new-log .add-new-log-btn {
+.add-new-log-btn {
   width: 36px !important;
   height: auto !important;
+  color: #fff !important;
+  background-color: #637bfe !important;
+}
+
+/* --------------------------------------- */
+/* Food Log Entry Cmpt */
+/* --------------------------------------- */
+
+.userInput-mainContainer {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.go-back {
+  float: left;
+  font-size: 25px;
   color: #fff;
-  background-color: #637bfe;
+}
+
+.userInput {
+  display: inline-block;
+  padding-left: 25px;
+}
+
+.userInput input {
+  width: 150px;
+  height: 25px;
+  border: none;
+  border-bottom: 2px solid #637bfe;
+  background-color: transparent;
+}
+
+.userInput input:focus {
+  outline: none;
+}
+
+.search-btn {
+  display: inline-block;
+  margin-left: 20px;
+}
+
+.dashboard-container .searched-items {
+  height: auto;
 }
