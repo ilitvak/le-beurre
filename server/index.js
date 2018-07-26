@@ -34,18 +34,35 @@ app.post('/userQuery', (req, res) => {
     }
   })
   .then((response) => {
-    // make another axios get request for the specific item that the user chose
-
-
-
-
-    console.log('SUCCESS: sending data from api: ', response.data);
+    //console.log('SUCCESS: sending data from api: ', response.data);
     res.send(response.data);
   })
   .catch((response) => {
     console.log('ERROR retrieving data from api: ', response);
     res.send(response)
   })
+});
+
+// getting nutrition info from user query 
+app.post('/nutritionInfo', (req, res) => {
+  console.log('REQUEST COMING IN: ', req.body.foodID);
+  let foodID = req.body.foodID;
+  // send a get request for nutrition info via axios
+  axios.get('https://trackapi.nutritionix.com/v2/search/item?nix_item_id=' + foodID, {
+    headers: {
+      "x-app-id": apiID,
+      "x-app-key": apiKey
+    }
+  })
+  .then((response) => {
+    console.log('Response from api: ', response.data);
+    res.send(response.data)
+  })
+  .catch((response) => {
+    console.log('ERROR getting response from API: ', response);
+    res.send(response);
+  })
+
 })
 
 app.listen(3000, function() {

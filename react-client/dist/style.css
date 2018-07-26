@@ -18,6 +18,10 @@ a {
   color: #fff;
 }
 
+li {
+  list-style-type: none;
+}
+
 /* --------------------------------------- */
 /* Login */
 /* --------------------------------------- */
@@ -271,6 +275,45 @@ form {
   margin-left: 20px;
 }
 
-.dashboard-container .searched-items {
-  height: auto;
+.food-search-container {
+  display: inline-block !important;
+}
+
+.dashboard-container.searched-items {
+  display: inline-block;
+  width: 40%;
+  height: auto !important;
+  margin-left: 110px;
+  vertical-align: top;
+}
+
+.searched-items .list-items div {
+  margin: 20px;
+}
+
+.searched-items .list-items li {
+  display: inline-block;
+  list-style-type: none;
+}
+
+.searched-items .list-items .add-food {
+  display: inline-block;
+  margin-left: 15px;
+  color: #637bfe;
+  vertical-align: bottom;
+  cursor: pointer;
+}
+
+.selectedFoodItemContainer {
+  padding-top: 25px;
+  padding-left: 25px;
+}
+
+.table-container {
+  width: 97%;
+  overflow-x: auto;
+}
+
+.table {
+  min-width: 300px;
 }

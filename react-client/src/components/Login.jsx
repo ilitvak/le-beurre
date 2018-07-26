@@ -32,6 +32,7 @@ class Login extends React.Component {
                 label="username"
                 placeholder="username"
                 className='textField'
+                autoComplete='off'
               />
             </div>
             <div className='password'>
