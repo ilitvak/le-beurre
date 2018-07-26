@@ -22,7 +22,7 @@ class FoodLogEntry extends React.Component {
       open: false,
       currentFoodSelected: '',
       nutritionInfoArr: [],
-      selectedFoodArr: []
+      openTable: false
     }
     this.searchUserQuery = this.searchUserQuery.bind(this);
     this.usersInput = this.usersInput.bind(this);
@@ -58,22 +58,22 @@ class FoodLogEntry extends React.Component {
   }
 
   addFoodItem(foodSelected, foodID){
-    let copyOfSelectedArr = this.state.selectedFoodArr.slice();
-    copyOfSelectedArr.push(foodSelected);
+    let copyOfSelectedArr = this.state.nutritionInfoArr.slice();
 
     this.setState({
       open: true,
       currentFoodSelected: foodSelected,
-      selectedFoodArr: copyOfSelectedArr
+      openTable: true
     })
 
     axios.post('/nutritionInfo', {
       foodID: foodID
     })
     .then((res) => {
+      copyOfSelectedArr.push(res.data.foods[0]);
       this.setState({
-        nutritionInfoArr: res.data.foods
-      })
+        nutritionInfoArr: copyOfSelectedArr
+      }, () => console.log('Nutrition Info Arr: ', this.state.nutritionInfoArr))
       console.log('Success: sending data back to client from server: ', res.data.foods);
     })
     .catch((res)=>{
@@ -121,7 +121,7 @@ class FoodLogEntry extends React.Component {
             </div>
           </div>
           <div className='selectedFoodItemContainer'>
-          <Paper className='table-container'>
+          {this.state.nutritionInfoArr.length > 0 ? <Paper className='table-container'>
             <Table className='table'>
               <TableHead>
                 <TableRow>
@@ -133,22 +133,22 @@ class FoodLogEntry extends React.Component {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {this.state.selectedFoodArr.map(n => {
+                {this.state.nutritionInfoArr.map((item, i) => {
                   return (
-                    <TableRow key={n.id}>
+                    <TableRow key={i}>
                       <TableCell component="th" scope="row">
-                        {n.name}
+                        {item.food_name}
                       </TableCell>
-                      <TableCell numeric>{n.calories}</TableCell>
-                      <TableCell numeric>{n.fat}</TableCell>
-                      <TableCell numeric>{n.carbs}</TableCell>
-                      <TableCell numeric>{n.protein}</TableCell>
+                      <TableCell numeric>{item.nf_calories}</TableCell>
+                      <TableCell numeric>{item.nf_total_fat}</TableCell>
+                      <TableCell numeric>{item.nf_total_carbohydrate}</TableCell>
+                      <TableCell numeric>{item.nf_protein}</TableCell>
                     </TableRow>
                   );
                 })}
               </TableBody>
             </Table>
-          </Paper>
+          </Paper> : null}
           </div>
         </div>
 
@@ -183,7 +183,7 @@ class FoodLogEntry extends React.Component {
             horizontal: 'left',
           }}
           open={this.state.open}
-          autoHideDuration={3000}
+          autoHideDuration={4000}
           onClose={this.handleClose}
           ContentProps={{
             'aria-describedby': 'message-id',
