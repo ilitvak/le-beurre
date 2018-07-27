@@ -5,10 +5,10 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import blue from '@material-ui/core/colors/blue';
 import Login from './components/Login.jsx';
 import Dashboard from './components/Dashboard.jsx';
-import FoodLog from './components/FoodLog.jsx';
-import axios from 'axios';
 import {BrowserRouter, Route, Link, Switch, Redirect} from 'react-router-dom';
 import FoodLogEntry from './components/FoodLogEntry.jsx';
+import {withRouter} from 'react-router-dom';
+
 
 // import material ui theme for entire application
 const theme = createMuiTheme({
@@ -26,10 +26,14 @@ class App extends React.Component {
     this.state = { 
       isLoggedIn: false,
       consecutiveCheckIns: 0,
-      
+      userFoodLog: [],
+      redirect: false,
+      dailyFoodGoal: 2000
     }
     this.clickedLoginBtn = this.clickedLoginBtn.bind(this);
     this.clickedLogoutBtn = this.clickedLogoutBtn.bind(this);
+    this.handleSave = this.handleSave.bind(this);
+    this.updateDailyGoal = this.updateDailyGoal.bind(this);
   }
 
   clickedLoginBtn(){
@@ -45,16 +49,42 @@ class App extends React.Component {
     })
   }
 
+  handleSave(e, userFoodLogEntryTable, history){
+    e.preventDefault();
+    this.setState({
+      userFoodLog: userFoodLogEntryTable,
+    }, () => this.updateDailyGoal())
+
+    history.push('/dashboard');
+  }
+
+  // updates user goals in dashboard component
+  updateDailyGoal(){
+    let update = this.state.userFoodLog.reduce((acc, curr) => {
+      return acc + curr.nf_calories;
+    }, 0)
+
+    this.setState({
+      dailyFoodGoal: Math.round(this.state.dailyFoodGoal - update)
+    })
+  }
+
+
+
   render () {
     return (
       <BrowserRouter>
         <MuiThemeProvider theme={theme}>
           {this.state.isLoggedIn ? <Nav clickedLogoutBtn={this.clickedLogoutBtn}/> : ''}
           <Route path='/' exact component={() => <Login clickedLoginBtn={this.clickedLoginBtn}/>} />
-          <Route path='/foodlogentry' component={FoodLogEntry} />
+          <Route path='/foodlogentry' component={() => <FoodLogEntry handleSave={this.handleSave}/>} />
           <Route path='/dashboard' component={ () => { 
             return ( 
-              <Dashboard consecutiveCheckIns={this.state.consecutiveCheckIns}/>
+              <Dashboard
+                dailyFoodGoal={this.state.dailyFoodGoal}
+                userFoodLog={this.state.userFoodLog}
+                consecutiveCheckIns={this.state.consecutiveCheckIns}
+              />
             ) 
           }
           } />

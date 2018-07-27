@@ -199,13 +199,22 @@ form {
   height: 240px;
 }
 
+.food-log-entries .table-container {
+  width: 100%;
+  margin-top: 25px;
+}
+
+.food-log-entries .table-container .MuiTableCell-head-121 {
+  background-color: #dfe4ea;
+  color: #000;
+}
 /* --------------------------------------- */
 /* Food Log Cmpt */
 /* --------------------------------------- */
 
 .foodlog-container {
   width: 100%;
-  height: 300px;
+  height: auto;
   margin: 100px 0;
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 }
@@ -244,6 +253,7 @@ form {
 /* --------------------------------------- */
 
 .dashboard-container.food-search-container {
+  position: relative;
   height: auto;
 }
 
@@ -322,4 +332,12 @@ form {
 
 .table {
   min-width: 300px;
+}
+
+.save-btn {
+  position: absolute !important;
+  bottom: 0 !important;
+  right: 0 !important;
+  margin-bottom: 1.5% !important;
+  margin-right: 3% !important;
 }

@@ -10,8 +10,9 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-
+import SaveIcon from '@material-ui/icons/Save';
 import axios from 'axios';
+import {withRouter} from 'react-router-dom';
 
 class FoodLogEntry extends React.Component {
   constructor(props){
@@ -73,7 +74,7 @@ class FoodLogEntry extends React.Component {
       copyOfSelectedArr.push(res.data.foods[0]);
       this.setState({
         nutritionInfoArr: copyOfSelectedArr
-      }, () => console.log('Nutrition Info Arr: ', this.state.nutritionInfoArr))
+      })
       console.log('Success: sending data back to client from server: ', res.data.foods);
     })
     .catch((res)=>{
@@ -121,34 +122,44 @@ class FoodLogEntry extends React.Component {
             </div>
           </div>
           <div className='selectedFoodItemContainer'>
-          {this.state.nutritionInfoArr.length > 0 ? <Paper className='table-container'>
-            <Table className='table'>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Nutrition</TableCell>
-                  <TableCell numeric>Calories</TableCell>
-                  <TableCell numeric>Fat (g)</TableCell>
-                  <TableCell numeric>Carbs (g)</TableCell>
-                  <TableCell numeric>Protein (g)</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {this.state.nutritionInfoArr.map((item, i) => {
-                  return (
-                    <TableRow key={i}>
-                      <TableCell component="th" scope="row">
-                        {item.food_name}
-                      </TableCell>
-                      <TableCell numeric>{item.nf_calories}</TableCell>
-                      <TableCell numeric>{item.nf_total_fat}</TableCell>
-                      <TableCell numeric>{item.nf_total_carbohydrate}</TableCell>
-                      <TableCell numeric>{item.nf_protein}</TableCell>
-                    </TableRow>
-                  );
-                })}
-              </TableBody>
-            </Table>
-          </Paper> : null}
+            {this.state.nutritionInfoArr.length > 0 ? <Paper className='table-container'>
+              <Table className='table'>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Nutrition</TableCell>
+                    <TableCell numeric>Calories</TableCell>
+                    <TableCell numeric>Fat (g)</TableCell>
+                    <TableCell numeric>Carbs (g)</TableCell>
+                    <TableCell numeric>Protein (g)</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {this.state.nutritionInfoArr.map((item, i) => {
+                    return (
+                      <TableRow key={i}>
+                        <TableCell component="th" scope="row">
+                          {item.food_name}
+                        </TableCell>
+                        <TableCell numeric>{item.nf_calories}</TableCell>
+                        <TableCell numeric>{item.nf_total_fat}</TableCell>
+                        <TableCell numeric>{item.nf_total_carbohydrate}</TableCell>
+                        <TableCell numeric>{item.nf_protein}</TableCell>
+                      </TableRow>
+                    );
+                  })}
+                </TableBody>
+              </Table>
+            </Paper> : null}
+            {this.state.nutritionInfoArr.length > 0 ?
+              <Button 
+                onClick={(e) => this.props.handleSave(e, this.state.nutritionInfoArr, this.props.history)}
+                variant="contained" 
+                size="small" 
+                className='save-btn'>
+                <SaveIcon className='' />
+                  Save
+              </Button> : null
+            }
           </div>
         </div>
 
@@ -201,5 +212,4 @@ class FoodLogEntry extends React.Component {
     )
   }
 }
-
-export default FoodLogEntry;
+export default withRouter(FoodLogEntry);

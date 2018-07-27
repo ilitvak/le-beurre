@@ -2,11 +2,15 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var path = require('path');
 var axios = require('axios');
-// UNCOMMENT THE DATABASE YOU'D LIKE TO USE
 var items = require('../database-mysql');
 
+// Irwins Account for Nutritionix API
 var apiKey = '42bde76584da169d3b211bed0d9ca57e';
 var apiID = '7d56ab21';
+
+// Moms Account
+// var apiID = '7924c8b1';
+// var apiKey = 'cb539400181dcc3b917e2754b7fb3018';
 
 var app = express();
 
@@ -62,7 +66,6 @@ app.post('/nutritionInfo', (req, res) => {
     console.log('ERROR getting response from API: ', response);
     res.send(response);
   })
-
 })
 
 app.listen(3000, function() {

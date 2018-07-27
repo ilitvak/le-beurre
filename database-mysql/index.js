@@ -3,18 +3,25 @@ var mysql = require('mysql');
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
-  password : 'FILL_ME_IN',
-  database : 'test'
+  password : '',
+  database : 'users'
 });
 
-var selectAll = function(callback) {
-  connection.query('SELECT * FROM items', function(err, results, fields) {
-    if(err) {
-      callback(err, null);
+connection.connect();
+
+let saveUser = (callback, data) => {
+  connection.query(`INSERT INTO userlog (user, pass), VALUES (?,?)`, [data.user, data.password], (err, res) => {
+    if(err){
+      callback(err)
     } else {
-      callback(null, results);
+      callback(null, res)
     }
-  });
+  })
+}
+
+let saveCurrentMeal = function(callback, data) {
+  connection.query('INSERT INTO meals ()')
 };
 
-module.exports.selectAll = selectAll;
+module.exports.saveCurrentMeal = saveCurrentMeal;
+module.exports.saveUser = saveUser;

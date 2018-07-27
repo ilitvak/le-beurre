@@ -5,10 +5,11 @@ import FoodLog from '../components/FoodLog.jsx';
 class Dashboard extends React.Component {
   constructor(props){
     super(props);
+    console.log('UserFoodLog: ', props);
     this.state = {
-      changeDailyGoal: 0,
       changeWeeklyGoal: 0
     }
+
   }
 
   render(){
@@ -29,14 +30,15 @@ class Dashboard extends React.Component {
         <div className='goals-container'>
           <div className='daily-goals'>
             <h4>Daily Goals</h4>
-            <p>{`2000 Calories`}</p>
+            <p>{`${this.props.dailyFoodGoal} calories`}</p>
           </div>
           <div className='weekly-goals'>
             <h4>Weekly Goals</h4>
             <p>{`Lose 3lbs`}</p>
           </div>
         </div>
-        <FoodLog />
+        <FoodLog 
+          userFoodLog={this.props.userFoodLog} />
       </div>
     );
   }

@@ -1,15 +1,23 @@
-DROP DATABASE IF EXISTS test;
+DROP DATABASE IF EXISTS users;
 
-CREATE DATABASE test;
+CREATE DATABASE users;
 
-USE test;
+USE users;
 
-CREATE TABLE items (
+CREATE TABLE userLog (
   id int NOT NULL AUTO_INCREMENT,
-  quantity integer NOT NULL,
-  description varchar(50) NOT NULL,
+  user varchar(50),
+  passW varchar(50),
   PRIMARY KEY (ID)
 );
+
+CREATE TABLE meals (
+  id int NOT NULL AUTO_INCREMENT,
+  date DATE,
+  food_item varchar(250),
+  userID int
+  PRIMARY KEY(ID)
+)
 
 /*  Execute this file from the command line by typing:
  *    mysql -u root < server/schema.sql
