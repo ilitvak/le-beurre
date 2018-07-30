@@ -50,7 +50,7 @@ class FoodLog extends React.Component {
             {this.props.userFoodLog.length > 0 ? <Paper className='table-container'>
               <Table className='table'>
                 <TableHead>
-                  <TableRow>
+                  <TableRow className='foodlog-header'>
                     <TableCell>Nutrition</TableCell>
                     <TableCell numeric>Calories</TableCell>
                     <TableCell numeric>Fat (g)</TableCell>

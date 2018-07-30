@@ -7,8 +7,7 @@ import Login from './components/Login.jsx';
 import Dashboard from './components/Dashboard.jsx';
 import {BrowserRouter, Route, Link, Switch, Redirect} from 'react-router-dom';
 import FoodLogEntry from './components/FoodLogEntry.jsx';
-import {withRouter} from 'react-router-dom';
-
+import axios from 'axios';
 
 // import material ui theme for entire application
 const theme = createMuiTheme({
@@ -34,9 +33,22 @@ class App extends React.Component {
     this.clickedLogoutBtn = this.clickedLogoutBtn.bind(this);
     this.handleSave = this.handleSave.bind(this);
     this.updateDailyGoal = this.updateDailyGoal.bind(this);
+    this.changeDailyFoodGoal = this.changeDailyFoodGoal.bind(this);
   }
 
-  clickedLoginBtn(){
+  clickedLoginBtn(username, password){
+    console.log(`Username: ${username} and Password: ${password}`);
+    axios.post('/userlogin', {
+      username: username,
+      password: password
+    })
+    .then((res) => {
+      console.log('Success, the server recieved your username / password: ', res);
+    })
+    .catch((res) => {
+      console.log(`Error server didn't recieve a username / password: `, res);
+    })
+
     this.setState({
       isLoggedIn: !this.state.isLoggedIn,
       consecutiveCheckIns: ++this.state.consecutiveCheckIns
@@ -69,6 +81,9 @@ class App extends React.Component {
     })
   }
 
+  changeDailyFoodGoal(){
+    console.log('clicked me to change daily food goal.');
+  }
 
 
   render () {
@@ -76,11 +91,15 @@ class App extends React.Component {
       <BrowserRouter>
         <MuiThemeProvider theme={theme}>
           {this.state.isLoggedIn ? <Nav clickedLogoutBtn={this.clickedLogoutBtn}/> : ''}
-          <Route path='/' exact component={() => <Login clickedLoginBtn={this.clickedLoginBtn}/>} />
+          <Route path='/' exact component={() => 
+            <Login 
+              clickedLoginBtn={this.clickedLoginBtn}/>} 
+          />
           <Route path='/foodlogentry' component={() => <FoodLogEntry handleSave={this.handleSave}/>} />
           <Route path='/dashboard' component={ () => { 
             return ( 
               <Dashboard
+                changeDailyFoodGoal={this.changeDailyFoodGoal}
                 dailyFoodGoal={this.state.dailyFoodGoal}
                 userFoodLog={this.state.userFoodLog}
                 consecutiveCheckIns={this.state.consecutiveCheckIns}

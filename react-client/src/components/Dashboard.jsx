@@ -1,6 +1,9 @@
 import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import FoodLog from '../components/FoodLog.jsx';
+import Button from '@material-ui/core/Button';
+import Icon from '@material-ui/core/Icon';
+import Tooltip from '@material-ui/core/Tooltip';
 
 class Dashboard extends React.Component {
   constructor(props){
@@ -31,6 +34,14 @@ class Dashboard extends React.Component {
           <div className='daily-goals'>
             <h4>Daily Goals</h4>
             <p>{`${this.props.dailyFoodGoal} calories`}</p>
+            <Button 
+              onClick={(e) => this.props.changeDailyFoodGoal(e)}
+              variant="fab" 
+              size='small'
+              aria-label="Edit" 
+              className='edit-btn'>
+              <Icon className='icon'>edit_icon</Icon>
+            </Button>
           </div>
           <div className='weekly-goals'>
             <h4>Weekly Goals</h4>

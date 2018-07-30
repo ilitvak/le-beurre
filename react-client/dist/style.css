@@ -171,7 +171,7 @@ form {
 .daily-goals,
 .weekly-goals {
   height: 100px;
-  padding: 39px 0;
+  padding-top: 39px;
   border-bottom: 2px solid #637bfe;
 }
 
@@ -204,9 +204,22 @@ form {
   margin-top: 25px;
 }
 
-.food-log-entries .table-container .MuiTableCell-head-121 {
+.foodlog-header{
   background-color: #dfe4ea;
   color: #000;
+}
+
+.edit-btn {
+  width: 40px !important;
+  height: auto !important;
+  min-width: 40px !important;
+  margin-left: 15px !important;
+  background-color: #10ac84 !important;
+}
+
+/* edit btn icon */
+.icon {
+  color: #fff !important;
 }
 /* --------------------------------------- */
 /* Food Log Cmpt */
