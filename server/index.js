@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var path = require('path');
 var axios = require('axios');
 var items = require('../database-mysql');
+var {saveUser} = require('../database-mysql/index.js')
 
 // Irwins Account for Nutritionix API
 var apiKey = '42bde76584da169d3b211bed0d9ca57e';
@@ -24,6 +25,19 @@ app.use(express.static(__dirname + '/../react-client/dist'));
 app.get('/*', function (req, res) {
   res.sendFile(path.join(__dirname, '../react-client/dist/index.html'));
 });
+
+app.post('/userlogin', (req, res) => {
+  console.log(`Req: ${req.body}`);
+  // save method here from database;
+  saveUser((err, response) => {
+    if(err){
+      console.log('ERROR saving users in database');
+    } else {
+      console.log('Saved user in database: ', response);
+      res.send(response)
+    }
+  }, req.body)
+})
 
 // searching a users query
 app.post('/userQuery', (req, res) => {

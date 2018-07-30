@@ -7,10 +7,17 @@ var connection = mysql.createConnection({
   database : 'users'
 });
 
-connection.connect();
+connection.connect((err) => {
+  if(err === null){
+    console.log('Database connected!');
+  } else {
+    console.log('Database error connecting');
+  }
+});
 
 let saveUser = (callback, data) => {
-  connection.query(`INSERT INTO userlog (user, pass), VALUES (?,?)`, [data.user, data.password], (err, res) => {
+  console.log('DATA IS: ', data);
+  connection.query(`INSERT IGNORE INTO userLog (user, passW) VALUES (?,?)`, [data.username, data.password], (err, res) => {
     if(err){
       callback(err)
     } else {

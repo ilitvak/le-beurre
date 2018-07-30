@@ -8,16 +8,19 @@ CREATE TABLE userLog (
   id int NOT NULL AUTO_INCREMENT,
   user varchar(50),
   passW varchar(50),
-  PRIMARY KEY (ID)
+  PRIMARY KEY (ID),
+
+  -- checks if username is unique 
+  UNIQUE KEY user (user)
 );
 
-CREATE TABLE meals (
-  id int NOT NULL AUTO_INCREMENT,
-  date DATE,
-  food_item varchar(250),
-  userID int
-  PRIMARY KEY(ID)
-)
+-- CREATE TABLE meals (
+--   id int NOT NULL AUTO_INCREMENT,
+--   date DATE,
+--   food_item varchar(250),
+--   userID int
+--   PRIMARY KEY(ID)
+-- )
 
 /*  Execute this file from the command line by typing:
  *    mysql -u root < server/schema.sql
