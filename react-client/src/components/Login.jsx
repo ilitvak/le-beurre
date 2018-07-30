@@ -2,6 +2,7 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import {Link} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 
 class Login extends React.Component {
   constructor(props){
@@ -68,15 +69,13 @@ class Login extends React.Component {
               />
             </div>
             <div className='login-btn-container'>
-              <Link to='/dashboard'>
-                <Button 
-                  onClick={(e) => this.props.clickedLoginBtn(e, this.state.username, this.state.password)}
-                  variant="contained" 
-                  color="primary" 
-                  className='login-btn'>
-                  login
-                </Button>
-              </Link>
+              <Button 
+                onClick={(e) => this.props.clickedLoginBtn(e, this.state.username, this.state.password, this.props.history)}
+                variant="contained" 
+                color="primary" 
+                className='login-btn'>
+                login
+              </Button>
             </div>
             <div className='signup-btn-container'>
             <Link to='/signup'> 
@@ -95,4 +94,4 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+export default withRouter(Login);

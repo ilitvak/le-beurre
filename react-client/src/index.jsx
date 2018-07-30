@@ -20,6 +20,8 @@ const theme = createMuiTheme({
   }
 });
 
+// Check for token and update application state if required
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -30,17 +32,17 @@ class App extends React.Component {
       userFoodLog: [],
       redirect: false,
       dailyFoodGoal: 2000,
-      signup: false
+      signup: false,
+      dashboardUser: ''
     }
     this.clickedLoginBtn = this.clickedLoginBtn.bind(this);
     this.clickedLogoutBtn = this.clickedLogoutBtn.bind(this);
     this.handleSave = this.handleSave.bind(this);
     this.updateDailyGoal = this.updateDailyGoal.bind(this);
-    this.changeDailyFoodGoal = this.changeDailyFoodGoal.bind(this);
     this.clickedSignUp = this.clickedSignUp.bind(this);
   }
 
-  clickedLoginBtn(e, username, password){
+  clickedLoginBtn(e, username, password, history){
     e.preventDefault();
 
     if(username === '' || password === ''){
@@ -48,6 +50,7 @@ class App extends React.Component {
         toggleFailedLoginAnimation: true
       })
     } 
+
     else {
       // sends username and password to db
       axios.post('/userlogin', {
@@ -62,22 +65,31 @@ class App extends React.Component {
       })
 
       this.setState({
-        isLoggedIn: !this.state.isLoggedIn,
+        isLoggedIn: true,
+        dashboardUser: username,
         consecutiveCheckIns: ++this.state.consecutiveCheckIns
       })
+
+      // if user successfully logged in, redirect to dashboard
+      history.push('/dashboard')
     }
   }
 
   clickedLogoutBtn(){
     this.setState({
-      isLoggedIn: !this.state.isLoggedIn
+      isLoggedIn: false
     })
   }
 
   handleSave(e, userFoodLogEntryTable, history){
     e.preventDefault();
+
+    let copyOfUserFoodLog = this.state.userFoodLog.slice();
+
+    copyOfUserFoodLog.push(...userFoodLogEntryTable);
+
     this.setState({
-      userFoodLog: userFoodLogEntryTable,
+      userFoodLog: copyOfUserFoodLog
     }, () => this.updateDailyGoal())
 
     history.push('/dashboard');
@@ -85,6 +97,9 @@ class App extends React.Component {
 
   // updates user goals in dashboard component
   updateDailyGoal(){
+
+    console.log('Current userFoodLog Arr: ', this.state.userFoodLog);
+
     let update = this.state.userFoodLog.reduce((acc, curr) => {
       return acc + curr.nf_calories;
     }, 0)
@@ -94,20 +109,30 @@ class App extends React.Component {
     })
   }
 
-  changeDailyFoodGoal(){
-    console.log('clicked me to change daily food goal.');
-  }
-
   clickedSignUp(e, username, password, history){
     e.preventDefault();
 
+    // sends username and password to db
+    axios.post('/userlogin', {
+      username: username,
+      password: password
+    })
+    .then((res) => {
+      console.log('Success, the DB saved new signup: ', res);
+    })
+    .catch((res) => {
+      console.log(`Error, the db didn't save new signup: `, res);
+    })
+
     if(username === '' || password === ''){
       this.setState({
-        isLoggedIn: false
+        isLoggedIn: false,
+        toggleFailedLoginAnimation: true
       })
     } else {
       this.setState({
-        isLoggedIn: true
+        isLoggedIn: true,
+        dashboardUser: username
       })
 
       history.push('/dashboard')
@@ -124,11 +149,11 @@ class App extends React.Component {
             <Login
               toggleFailedLoginAnimation={this.state.toggleFailedLoginAnimation} 
               clickedLoginBtn={this.clickedLoginBtn}
-              clickedSignUp={this.clickedSignUp} 
             />} 
           />
           <Route path='/signup' component={() => 
             <Signup
+              toggleFailedLoginAnimation={this.state.toggleFailedLoginAnimation} 
               clickedSignUp={this.clickedSignUp} 
             />} 
           />
@@ -136,6 +161,7 @@ class App extends React.Component {
           <Route path='/dashboard' component={() => { 
             return ( 
               <Dashboard
+                username={this.state.dashboardUser}
                 changeDailyFoodGoal={this.changeDailyFoodGoal}
                 dailyFoodGoal={this.state.dailyFoodGoal}
                 userFoodLog={this.state.userFoodLog}

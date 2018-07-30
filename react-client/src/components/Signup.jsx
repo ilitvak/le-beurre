@@ -91,6 +91,16 @@ class Signup extends React.Component {
                 create account
               </Button>
             </div>
+            <div className='login-btn-container'>
+            <Link to='/'>
+              <Button 
+                  variant="contained" 
+                  color="primary" 
+                  className='login-btn'>
+                  go back
+              </Button>
+            </Link>
+            </div>
           </div>
         </form>
       </div>

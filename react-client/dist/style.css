@@ -171,6 +171,10 @@ form {
   padding: 18px 25px;
 }
 
+.dashboard-container .title h3:first-child {
+  float: left;
+} 
+
 .dashboard-container .title h3 {
   font-size: 15px;
 }

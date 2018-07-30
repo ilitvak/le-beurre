@@ -3,7 +3,6 @@ import Avatar from '@material-ui/core/Avatar';
 import FoodLog from '../components/FoodLog.jsx';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
-import Tooltip from '@material-ui/core/Tooltip';
 
 class Dashboard extends React.Component {
   constructor(props){
@@ -19,6 +18,7 @@ class Dashboard extends React.Component {
     return(
       <div className='dashboard-container'>
         <div className='title'>
+          <h3>Welcome {this.props.username}</h3>
           <h3>{this.props.consecutiveCheckIns} days logged in</h3>
         </div>
         <div className='user-avatar-container'>
