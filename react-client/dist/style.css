@@ -92,12 +92,41 @@ form {
   width: 300px;
 }
 
-.login-btn-container .login-btn {
+.login-btn-container .login-btn,
+.signup-btn-container .signup-btn {
   width: 326px;
   margin-top: 20px;
   background-color: #637bfe;
   text-transform: lowercase;
 }
+
+/* --------------------------------------- */
+/* invalid login animation */
+/* --------------------------------------- */
+
+@keyframes invalid {
+   0% {
+    transform: translate(-50%, -50%);
+  }
+  25% {
+    transform: translate(-52%, -50%);
+  }
+
+  75% {
+    transform: translate(-48%, -50%);
+  }
+
+  100% {
+    transform: translate(-50%, -50%);
+  }
+}
+.invalid-login {
+  animation: invalid .5s linear;
+}
+
+
+
+
 
 /* --------------------------------------- */
 /* Nav */

@@ -8,6 +8,7 @@ import Dashboard from './components/Dashboard.jsx';
 import {BrowserRouter, Route, Link, Switch, Redirect} from 'react-router-dom';
 import FoodLogEntry from './components/FoodLogEntry.jsx';
 import axios from 'axios';
+import Signup from './components/Signup.jsx';
 
 // import material ui theme for entire application
 const theme = createMuiTheme({
@@ -24,35 +25,47 @@ class App extends React.Component {
     super(props);
     this.state = { 
       isLoggedIn: false,
+      toggleFailedLoginAnimation: false,
       consecutiveCheckIns: 0,
       userFoodLog: [],
       redirect: false,
-      dailyFoodGoal: 2000
+      dailyFoodGoal: 2000,
+      signup: false
     }
     this.clickedLoginBtn = this.clickedLoginBtn.bind(this);
     this.clickedLogoutBtn = this.clickedLogoutBtn.bind(this);
     this.handleSave = this.handleSave.bind(this);
     this.updateDailyGoal = this.updateDailyGoal.bind(this);
     this.changeDailyFoodGoal = this.changeDailyFoodGoal.bind(this);
+    this.clickedSignUp = this.clickedSignUp.bind(this);
   }
 
-  clickedLoginBtn(username, password){
-    console.log(`Username: ${username} and Password: ${password}`);
-    axios.post('/userlogin', {
-      username: username,
-      password: password
-    })
-    .then((res) => {
-      console.log('Success, the server recieved your username / password: ', res);
-    })
-    .catch((res) => {
-      console.log(`Error server didn't recieve a username / password: `, res);
-    })
+  clickedLoginBtn(e, username, password){
+    e.preventDefault();
 
-    this.setState({
-      isLoggedIn: !this.state.isLoggedIn,
-      consecutiveCheckIns: ++this.state.consecutiveCheckIns
-    })
+    if(username === '' || password === ''){
+      this.setState({
+        toggleFailedLoginAnimation: true
+      })
+    } 
+    else {
+      // sends username and password to db
+      axios.post('/userlogin', {
+        username: username,
+        password: password
+      })
+      .then((res) => {
+        console.log('Success, the server recieved your username / password: ', res);
+      })
+      .catch((res) => {
+        console.log(`Error server didn't recieve a username / password: `, res);
+      })
+
+      this.setState({
+        isLoggedIn: !this.state.isLoggedIn,
+        consecutiveCheckIns: ++this.state.consecutiveCheckIns
+      })
+    }
   }
 
   clickedLogoutBtn(){
@@ -85,6 +98,22 @@ class App extends React.Component {
     console.log('clicked me to change daily food goal.');
   }
 
+  clickedSignUp(e, username, password, history){
+    e.preventDefault();
+
+    if(username === '' || password === ''){
+      this.setState({
+        isLoggedIn: false
+      })
+    } else {
+      this.setState({
+        isLoggedIn: true
+      })
+
+      history.push('/dashboard')
+    }
+  }
+
 
   render () {
     return (
@@ -92,11 +121,19 @@ class App extends React.Component {
         <MuiThemeProvider theme={theme}>
           {this.state.isLoggedIn ? <Nav clickedLogoutBtn={this.clickedLogoutBtn}/> : ''}
           <Route path='/' exact component={() => 
-            <Login 
-              clickedLoginBtn={this.clickedLoginBtn}/>} 
+            <Login
+              toggleFailedLoginAnimation={this.state.toggleFailedLoginAnimation} 
+              clickedLoginBtn={this.clickedLoginBtn}
+              clickedSignUp={this.clickedSignUp} 
+            />} 
+          />
+          <Route path='/signup' component={() => 
+            <Signup
+              clickedSignUp={this.clickedSignUp} 
+            />} 
           />
           <Route path='/foodlogentry' component={() => <FoodLogEntry handleSave={this.handleSave}/>} />
-          <Route path='/dashboard' component={ () => { 
+          <Route path='/dashboard' component={() => { 
             return ( 
               <Dashboard
                 changeDailyFoodGoal={this.changeDailyFoodGoal}

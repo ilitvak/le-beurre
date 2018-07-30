@@ -34,7 +34,7 @@ app.post('/userlogin', (req, res) => {
       console.log('ERROR saving users in database');
     } else {
       console.log('Saved user in database: ', response);
-      res.send(response)
+      res.send(req.body)
     }
   }, req.body)
 })

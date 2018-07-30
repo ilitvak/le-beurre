@@ -28,7 +28,7 @@ class Login extends React.Component {
 
   render(){
     return(
-      <div className='login-container'>
+     <div className={"login-container " + (this.props.toggleFailedLoginAnimation ? 'invalid-login' : '')}>
         <form action="">
           <div className='title'>
             <h3>Le Beurre</h3>
@@ -49,6 +49,7 @@ class Login extends React.Component {
                 placeholder="username"
                 className='textField'
                 autoComplete='off'
+                required
               />
             </div>
             <div className='password'>
@@ -63,26 +64,34 @@ class Login extends React.Component {
                 type="password"
                 autoComplete="current-password"
                 className='textField'
+                required
               />
             </div>
             <div className='login-btn-container'>
-            <Link to='/dashboard'>
+              <Link to='/dashboard'>
+                <Button 
+                  onClick={(e) => this.props.clickedLoginBtn(e, this.state.username, this.state.password)}
+                  variant="contained" 
+                  color="primary" 
+                  className='login-btn'>
+                  login
+                </Button>
+              </Link>
+            </div>
+            <div className='signup-btn-container'>
+            <Link to='/signup'> 
               <Button 
-                onClick={() => this.props.clickedLoginBtn(this.state.username, this.state.password)}
                 variant="contained" 
                 color="primary" 
-                className='login-btn'>
-                login
+                className='login-btn signup-btn'>
+                signup
               </Button>
             </Link>
-            </div>
-            <div className=''>
-
             </div>
           </div>
         </form>
       </div>
-    ) 
+    )
   }
 }
 
