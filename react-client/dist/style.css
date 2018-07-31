@@ -132,10 +132,6 @@ form {
   color: #e74c3c;
 }
 
-
-
-
-
 /* --------------------------------------- */
 /* Nav */
 /* --------------------------------------- */
@@ -262,6 +258,57 @@ form {
 .icon {
   color: #fff !important;
 }
+
+.modal-container {
+  position: absolute;
+  width: 300px;
+  height: 150px;
+  padding: 10px;
+  box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 5px 8px 0px rgba(0, 0, 0, 0.14), 0px 1px 14px 0px rgba(0, 0, 0, 0.12);
+  background-color: #fff;
+  top: 40%;
+  left: 30%;
+  transform: translate(-50%, -50%);
+}
+
+.modal-container h2 {
+  padding-top: 29px;
+  text-align: center;
+}
+
+.modal-container .changeDailyCalorieGoal {
+  display: block;
+  padding-left: 0;
+  margin-top: 15px;
+  text-align: center;
+}
+
+.close-btn-container {
+  position: absolute;
+  margin-top: 5px;
+  margin-right: 5px;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+}
+
+.fa-times-circle { 
+  font-size: 20px;
+}
+
+.user-calorie-submit-container {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+.user-calorie-submit-container .update-daily-user-calories {
+  transform: scale(0.85) !important;
+}
+
 /* --------------------------------------- */
 /* Food Log Cmpt */
 /* --------------------------------------- */

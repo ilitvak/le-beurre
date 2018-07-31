@@ -20,8 +20,6 @@ const theme = createMuiTheme({
   }
 });
 
-// Check for token and update application state if required
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -39,8 +37,9 @@ class App extends React.Component {
     this.clickedLoginBtn = this.clickedLoginBtn.bind(this);
     this.clickedLogoutBtn = this.clickedLogoutBtn.bind(this);
     this.handleSave = this.handleSave.bind(this);
-    this.updateDailyGoal = this.updateDailyGoal.bind(this);
+    this.updateDailyCalories = this.updateDailyCalories.bind(this);
     this.clickedSignUp = this.clickedSignUp.bind(this);
+    this.changeDailyFoodGoal = this.changeDailyFoodGoal.bind(this);
   }
 
   clickedLoginBtn(e, username, password, history){
@@ -91,15 +90,13 @@ class App extends React.Component {
 
     this.setState({
       userFoodLog: copyOfUserFoodLog
-    }, () => this.updateDailyGoal())
+    }, () => this.updateDailyCalories())
 
     history.push('/dashboard');
   }
 
   // updates user goals in dashboard component
-  updateDailyGoal(){
-
-    console.log('Current userFoodLog Arr: ', this.state.userFoodLog);
+  updateDailyCalories(){
 
     let update = this.state.userFoodLog.reduce((acc, curr) => {
       return acc + curr.nf_calories;
@@ -130,6 +127,7 @@ class App extends React.Component {
       console.log(`Success, DB saved new signup: ${username}: `, res);
       this.setState({
         isLoggedIn: true,
+        toggleFailedLoginAnimation: false,
         dashboardUser: username
       })
       history.push('/dashboard')
@@ -142,6 +140,15 @@ class App extends React.Component {
         userInDatabase: true
       })
     })
+  }
+
+  changeDailyFoodGoal(e, updated){
+    e.preventDefault();
+    
+    this.setState({
+      dailyFoodGoal: updated
+    })
+    console.log('User wants to edit daily food goal');
   }
 
 
