@@ -39,15 +39,15 @@ passport.use(new LocalStrategy(
       if (err) {
         return done(err); 
       }
-      if (user.length > 0) {
-        return done(null, false, { message: 'User already exists.' });
+      if (user.length !== 0) {
+        return done(null, false);
       } else {
         // save method here from database;
         saveUser((err, res) => {
           if(err){
             console.log('ERROR saving users in database: ', err);
           } else {
-            return done(null,{id: res. insertId}, )
+            return done(null,{id: res.insertId})
           }
         }, req.body)
       }
@@ -55,10 +55,10 @@ passport.use(new LocalStrategy(
   }
 ));
 
-app.post('/signup', passport.authenticate('local', { session: false }), (req, res) => {
+app.post('/signup', passport.authenticate('local', { session: false}), (req, res) => {
   console.log('User: ', req.user);
   console.log(`Req: ${req.body}`);
-  
+
   res.send(req.user);
 })
 

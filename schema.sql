@@ -8,10 +8,7 @@ CREATE TABLE userLog (
   id int NOT NULL AUTO_INCREMENT,
   username varchar(50),
   password varchar(50),
-  PRIMARY KEY (ID),
-
-  -- checks if username is unique 
-  UNIQUE KEY username (username)
+  PRIMARY KEY (ID)
 );
 
 -- CREATE TABLE meals (

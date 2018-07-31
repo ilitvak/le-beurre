@@ -27,8 +27,9 @@ let saveUser = (callback, data) => {
   })
 }
 
-let findUser = (callback, data) => {
-  connection.query('SELECT * FROM userLog WHERE username IN (?)', [data.username], (err, res) => {
+let findUser = (callback, username) => {
+  console.log('FIND USER IS: ', username);
+  connection.query(`SELECT * FROM userLog WHERE username = ?`, [username], (err, res) => {
     if(err){ 
       callback(err);
     } else {

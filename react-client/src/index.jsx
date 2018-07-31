@@ -33,7 +33,7 @@ class App extends React.Component {
       redirect: false,
       dailyFoodGoal: 2000,
       signup: false,
-      dashboardUser: ''
+      dashboardUser: '',
     }
     this.clickedLoginBtn = this.clickedLoginBtn.bind(this);
     this.clickedLogoutBtn = this.clickedLogoutBtn.bind(this);
