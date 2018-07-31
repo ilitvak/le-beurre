@@ -3,8 +3,10 @@ var bodyParser = require('body-parser');
 var path = require('path');
 var axios = require('axios');
 var items = require('../database-mysql');
-var {saveUser} = require('../database-mysql/index.js')
-
+var {saveUser} = require('../database-mysql/index.js');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var {findUser} = require('../database-mysql/index.js');
 // Irwins Account for Nutritionix API
 var apiKey = '42bde76584da169d3b211bed0d9ca57e';
 var apiID = '7d56ab21';
@@ -17,6 +19,7 @@ var app = express();
 
 // initiate middleware
 app.use(bodyParser.json());
+app.use(passport.initialize());
 
 // UNCOMMENT FOR REACT
 app.use(express.static(__dirname + '/../react-client/dist'));
@@ -26,17 +29,37 @@ app.get('/*', function (req, res) {
   res.sendFile(path.join(__dirname, '../react-client/dist/index.html'));
 });
 
-app.post('/userlogin', (req, res) => {
+// Passport authentication for signup
+passport.use(new LocalStrategy(
+  { passReqToCallback: true },
+  function(req, username, password, done) {
+    findUser((err, user) => {
+      console.log('User is: ', user);
+      console.log('ERROR in db: ', err);
+      if (err) {
+        return done(err); 
+      }
+      if (user.length > 0) {
+        return done(null, false, { message: 'User already exists.' });
+      } else {
+        // save method here from database;
+        saveUser((err, res) => {
+          if(err){
+            console.log('ERROR saving users in database: ', err);
+          } else {
+            return done(null,{id: res. insertId}, )
+          }
+        }, req.body)
+      }
+    }, username);
+  }
+));
+
+app.post('/signup', passport.authenticate('local', { session: false }), (req, res) => {
+  console.log('User: ', req.user);
   console.log(`Req: ${req.body}`);
-  // save method here from database;
-  saveUser((err, response) => {
-    if(err){
-      console.log('ERROR saving users in database');
-    } else {
-      console.log('Saved user in database: ', response);
-      res.send(req.body)
-    }
-  }, req.body)
+  
+  res.send(req.user);
 })
 
 // searching a users query

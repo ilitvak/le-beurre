@@ -113,7 +113,7 @@ class App extends React.Component {
     e.preventDefault();
 
     // sends username and password to db
-    axios.post('/userlogin', {
+    axios.post('/signup', {
       username: username,
       password: password
     })

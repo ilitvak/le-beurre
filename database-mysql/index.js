@@ -17,9 +17,20 @@ connection.connect((err) => {
 
 let saveUser = (callback, data) => {
   console.log('DATA IS: ', data);
-  connection.query(`INSERT IGNORE INTO userLog (user, passW) VALUES (?,?)`, [data.username, data.password], (err, res) => {
+  connection.query(`INSERT INTO userLog (username, password) VALUES (?,?)`, [data.username, data.password], (err, res) => {
     if(err){
-      callback(err)
+      callback(err);
+    } else {
+      console.log('res from database-mysql file is: ', res);
+      callback(null, res)
+    }
+  })
+}
+
+let findUser = (callback, data) => {
+  connection.query('SELECT * FROM userLog WHERE username IN (?)', [data.username], (err, res) => {
+    if(err){ 
+      callback(err);
     } else {
       callback(null, res)
     }
@@ -32,3 +43,4 @@ let saveCurrentMeal = function(callback, data) {
 
 module.exports.saveCurrentMeal = saveCurrentMeal;
 module.exports.saveUser = saveUser;
+module.exports.findUser = findUser;

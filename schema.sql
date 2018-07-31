@@ -6,12 +6,12 @@ USE users;
 
 CREATE TABLE userLog (
   id int NOT NULL AUTO_INCREMENT,
-  user varchar(50),
-  passW varchar(50),
+  username varchar(50),
+  password varchar(50),
   PRIMARY KEY (ID),
 
   -- checks if username is unique 
-  UNIQUE KEY user (user)
+  UNIQUE KEY username (username)
 );
 
 -- CREATE TABLE meals (
