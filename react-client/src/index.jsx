@@ -34,6 +34,7 @@ class App extends React.Component {
       dailyFoodGoal: 2000,
       signup: false,
       dashboardUser: '',
+      userInDatabase: null
     }
     this.clickedLoginBtn = this.clickedLoginBtn.bind(this);
     this.clickedLogoutBtn = this.clickedLogoutBtn.bind(this);
@@ -109,8 +110,16 @@ class App extends React.Component {
     })
   }
 
+
   clickedSignUp(e, username, password, history){
     e.preventDefault();
+
+    if(username === '' || password === ''){
+      this.setState({
+        isLoggedIn: false,
+        toggleFailedLoginAnimation: true,
+      })
+    }
 
     // sends username and password to db
     axios.post('/signup', {
@@ -118,25 +127,21 @@ class App extends React.Component {
       password: password
     })
     .then((res) => {
-      console.log('Success, the DB saved new signup: ', res);
-    })
-    .catch((res) => {
-      console.log(`Error, the db didn't save new signup: `, res);
-    })
-
-    if(username === '' || password === ''){
-      this.setState({
-        isLoggedIn: false,
-        toggleFailedLoginAnimation: true
-      })
-    } else {
+      console.log(`Success, DB saved new signup: ${username}: `, res);
       this.setState({
         isLoggedIn: true,
         dashboardUser: username
       })
-
       history.push('/dashboard')
-    }
+    })
+    .catch((res) => {
+      console.log(`Error, User exists in DB: `, res);
+      this.setState({
+        isLoggedIn: false,
+        toggleFailedLoginAnimation: true,
+        userInDatabase: true
+      })
+    })
   }
 
 
@@ -153,6 +158,7 @@ class App extends React.Component {
           />
           <Route path='/signup' component={() => 
             <Signup
+              userInDatabase={this.state.userInDatabase}
               toggleFailedLoginAnimation={this.state.toggleFailedLoginAnimation} 
               clickedSignUp={this.clickedSignUp} 
             />} 

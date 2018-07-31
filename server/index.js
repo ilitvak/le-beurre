@@ -45,9 +45,9 @@ passport.use(new LocalStrategy(
         // save method here from database;
         saveUser((err, res) => {
           if(err){
-            console.log('ERROR saving users in database: ', err);
+            return done(err);
           } else {
-            return done(null,{id: res.insertId})
+            return done(null, {id: res.insertId})
           }
         }, req.body)
       }

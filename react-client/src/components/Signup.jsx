@@ -52,6 +52,7 @@ class Signup extends React.Component {
             </span>
           </div>
           <h4>Storing daily meals has never been easier.</h4>
+          {this.props.userInDatabase ? <p className='unauthorized'>Please create a new username</p> : ''}
           <div className='login-area'>
             <div className='username'>
               <span>

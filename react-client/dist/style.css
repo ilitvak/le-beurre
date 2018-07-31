@@ -120,8 +120,16 @@ form {
     transform: translate(-50%, -50%);
   }
 }
+
 .invalid-login {
   animation: invalid .5s linear;
+}
+
+.unauthorized {
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  color: #e74c3c;
 }
 
 
