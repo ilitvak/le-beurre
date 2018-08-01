@@ -45,4 +45,4 @@ Open your default browser and run localhost:3000
 Video Demonstration
 -------------------
 
-![Le-Beurre](https://media.giphy.com/media/AgIwTDx9rHmtBvCiPJ/giphy.gif)
+![Le-Beurre](https://media.giphy.com/media/OQnn8f9mxTPFLD2wCT/giphy.gif)
