@@ -13,6 +13,7 @@ Built With
 * [Node](https://nodejs.org/en/)
 * [Express](https://expressjs.com/)
 * [MYSQL](https://www.mysql.com/)
+* [NutritionixAPI](https://www.nutritionix.com/)
 * [MaterialUI](https://material-ui.com/)
 * [PassportJS](http://www.passportjs.org/)
 
