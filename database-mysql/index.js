@@ -16,7 +16,6 @@ connection.connect((err) => {
 });
 
 let saveUser = (callback, data) => {
-  console.log('DATA IS: ', data);
   connection.query(`INSERT INTO userLog (username, password) VALUES (?,?)`, [data.username, data.password], (err, res) => {
     if(err){
       callback(err);
@@ -28,7 +27,6 @@ let saveUser = (callback, data) => {
 }
 
 let findUser = (callback, username) => {
-  console.log('FIND USER IS: ', username);
   connection.query(`SELECT * FROM userLog WHERE username = ?`, [username], (err, res) => {
     if(err){ 
       callback(err);
@@ -38,10 +36,17 @@ let findUser = (callback, username) => {
   })
 }
 
-let saveCurrentMeal = function(callback, data) {
-  connection.query('INSERT INTO meals ()')
+let saveMeal = function(data, callback) {
+  console.log('saveMEAL IN DB: ', data.meal);
+  connection.query('INSERT INTO meals (food_item, username) VALUES (?,?)', [data.meal, data.username], (err, res) => {
+    if(err){
+      callback(err);
+    } else {
+      callback(null, res)
+    }
+  })
 };
 
-module.exports.saveCurrentMeal = saveCurrentMeal;
 module.exports.saveUser = saveUser;
 module.exports.findUser = findUser;
+module.exports.saveMeal = saveMeal;

@@ -32,7 +32,7 @@ class App extends React.Component {
       dailyFoodGoal: 2000,
       signup: false,
       dashboardUser: '',
-      userInDatabase: null
+      userInDatabase: null,
     }
     this.clickedLoginBtn = this.clickedLoginBtn.bind(this);
     this.clickedLogoutBtn = this.clickedLogoutBtn.bind(this);
@@ -55,13 +55,13 @@ class App extends React.Component {
       // sends username and password to db
       axios.post('/userlogin', {
         username: username,
-        password: password
+        password: password  
       })
       .then((res) => {
         console.log('Success, the server recieved your username / password: ', res);
       })
       .catch((res) => {
-        console.log(`Error server didn't recieve a username / password: `, res);
+        console.log(`Error: User exists in DB`, res);
       })
 
       this.setState({
@@ -77,16 +77,28 @@ class App extends React.Component {
 
   clickedLogoutBtn(){
     this.setState({
-      isLoggedIn: false
+      isLoggedIn: false,
+      toggleFailedLoginAnimation: false
     })
   }
 
-  handleSave(e, userFoodLogEntryTable, history){
+  handleSave(e, userFoodLogEntryTable, history ){
     e.preventDefault();
 
     let copyOfUserFoodLog = this.state.userFoodLog.slice();
 
     copyOfUserFoodLog.push(...userFoodLogEntryTable);
+
+    axios.post('/meals', {
+      meal: copyOfUserFoodLog,
+      username: this.state.dashboardUser
+    })
+    .then((res) => {
+      console.log('Sucess: saved food to DB: ', res);
+    })
+    .catch((res) => {
+      console.log('ERROR: Did not save meals in DB: ', res);
+    })
 
     this.setState({
       userFoodLog: copyOfUserFoodLog
@@ -144,13 +156,11 @@ class App extends React.Component {
 
   changeDailyFoodGoal(e, updated){
     e.preventDefault();
-    
+
     this.setState({
       dailyFoodGoal: updated
     })
-    console.log('User wants to edit daily food goal');
   }
-
 
   render () {
     return (

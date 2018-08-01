@@ -11,13 +11,12 @@ CREATE TABLE userLog (
   PRIMARY KEY (ID)
 );
 
--- CREATE TABLE meals (
---   id int NOT NULL AUTO_INCREMENT,
---   date DATE,
---   food_item varchar(250),
---   userID int
---   PRIMARY KEY(ID)
--- )
+CREATE TABLE meals (
+  food_item varchar(250),
+  username varchar(50),
+  userID int NOT NULL,
+  Primary KEY (userID)
+)
 
 /*  Execute this file from the command line by typing:
  *    mysql -u root < server/schema.sql
