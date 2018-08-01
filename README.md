@@ -46,4 +46,4 @@ Video Demonstration
 -------------------
 Click the link below to view
 
-[Le-Beurre](https://i.imgur.com/KYH8DIH.gifv)
+[Imgur](https://i.imgur.com/2HVk5tu.gifv)
