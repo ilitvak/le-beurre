@@ -435,6 +435,11 @@ form {
   min-width: 300px;
 }
 
+.selectedFoodItemContainer .table-row:hover {
+  cursor: pointer;
+  background-color: #ff7979;
+}
+
 .save-btn {
   position: absolute !important;
   bottom: 0 !important;

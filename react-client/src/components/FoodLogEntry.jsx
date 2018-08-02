@@ -23,12 +23,14 @@ class FoodLogEntry extends React.Component {
       open: false,
       currentFoodSelected: '',
       nutritionInfoArr: [],
-      openTable: false
+      openTable: false,
+      deleteItem: false
     }
     this.searchUserQuery = this.searchUserQuery.bind(this);
     this.usersInput = this.usersInput.bind(this);
     this.addFoodItem = this.addFoodItem.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   usersInput(query){
@@ -50,7 +52,7 @@ class FoodLogEntry extends React.Component {
         this.setState({
           searchedFoodArr: res.data.branded
         })
-        console.log('Success: sending response from server: ', res.data.branded);
+        console.log('Success: sending response from server: ', res.data.common);
       })
       .catch((res) => {
         console.log('ERROR: sending user input to server: ', res);
@@ -90,6 +92,17 @@ class FoodLogEntry extends React.Component {
       open: false 
     });
   };
+
+  handleDelete(e, i){
+    e.preventDefault();
+    let copyOfNutritionInfo = this.state.nutritionInfoArr.slice();
+
+    copyOfNutritionInfo.splice(i, 1);
+
+    this.setState({
+      nutritionInfoArr: copyOfNutritionInfo
+    })
+  }
 
   render(){
     return(
@@ -136,7 +149,10 @@ class FoodLogEntry extends React.Component {
                 <TableBody>
                   {this.state.nutritionInfoArr.map((item, i) => {
                     return (
-                      <TableRow key={i}>
+                      <TableRow 
+                        key={i} 
+                        className='table-row'
+                        onClick={(e) => this.handleDelete(e, i)}>
                         <TableCell component="th" scope="row">
                           {item.food_name}
                         </TableCell>
