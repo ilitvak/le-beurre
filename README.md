@@ -3,6 +3,19 @@ Le-Beurre
 
 Because keeping track of your meals should be as smooth as butter.
 
+Application
+===========
+
+This application is deployed using Heroku. Click the link below.
+
+[Le-Beurre](https://le-beurre.herokuapp.com/)
+
+Video Demonstration
+-------------------
+Click the link below to view
+
+[Le-Beurre](https://i.imgur.com/2HVk5tu.gifv)
+
 Built With
 ----------
 
@@ -16,6 +29,7 @@ Built With
 * [NutritionixAPI](https://www.nutritionix.com/)
 * [MaterialUI](https://material-ui.com/)
 * [PassportJS](http://www.passportjs.org/)
+* [Heroku](https://www.heroku.com)
 
 Configuration
 -------------
@@ -43,8 +57,4 @@ Open your default browser and run localhost:3000
 ```
 
 
-Video Demonstration
--------------------
-Click the link below to view
 
-[Le-Beurre](https://i.imgur.com/2HVk5tu.gifv)
